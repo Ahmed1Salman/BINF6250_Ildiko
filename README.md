@@ -28,11 +28,14 @@ Class HMM(init_probs, trans_probs, emit_probs):
     self.validate()
 
     # Step 4. convert to log space once (Durbin p. 78); trans and emit are NESTED dictionaries
-    self.log_init  = {state: np.log(p) for state, p in init_probs.items()}
-    self.log_trans = {from_state: {to_state: np.log(p) for to_state, p in row.items()}
-                      for from_state, row in trans_probs.items()}
-    self.log_emit  = {state: {symbol: np.log(p) for symbol, p in row.items()}
-                      for state, row in emit_probs.items()}
+    # Silence warning message for this step only. Warning points to probabilities = 0 which is acceptable and not an error.
+    with np.errstates(divide='ignore'):
+      self.log_init  = {state: np.log(p) for state, p in init_probs.items()}
+      self.log_trans = {from_state: {to_state: np.log(p) for to_state, p in row.items()}
+                        for from_state, row in trans_probs.items()}
+      self.log_emit  = {state: {symbol: np.log(p) for symbol, p in row.items()}
+                        for state, row in emit_probs.items()}
+
     # OPEN DECISION: zero probabilities -> allow -inf, or pseudocounts?
 
     self.score_matrix     = None    # built in initialize_matrix(), filled in viterbi_algorithm()
@@ -76,6 +79,7 @@ Class HMM(init_probs, trans_probs, emit_probs):
     return [self.states[row] for row in path_rows]
 
   viterbi_algorithm(observations):
+    observations = observations.upper()
     self.check_observations(observations)
     num_states    = len(self.states)
     num_positions = len(observations)
