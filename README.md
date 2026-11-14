@@ -194,3 +194,4 @@ I felt intimidated by this project not having guardrails and functions to guide 
 
 
 # Generative AI Appendix
+Ahmed Salman - Claude AI (Sonnet 5.5) to generate a set of probabilities for the E.coli test. Without somewhat realistic values for the test the results would have been messy and mostly meaningless. The probabilities I got from Claude produced reasonable results with large stretches of the "native" state with a few stretches of "alien" state.
