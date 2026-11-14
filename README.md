@@ -1,4 +1,11 @@
 # Introduction
+This project implements the Viterbi algorithm for hidden Markov models. A hidden Markov model describes a sequence of observations that were produced by a sequence of hidden states we can't see directly. In our example the observations are DNA bases, and the hidden states are CpG island and genome background. Given a model and an observation sequence, the Viterbi algorithm finds the single most probable sequence of hidden states. This is the decoding problem described by Rabiner (1989) and in Chapter 3 of Durbin et al. (1998).
+
+The model is defined by three dictionaries supplied by the user. These hold the initial probabilities, the transition probabilities, and the emission probabilities. We built an `HMM` class that stores the model and derives the states and the alphabet from these dictionaries, so nothing is hard-coded. The class also checks that the inputs are consistent and are valid probabilities, and it converts every probability to log space to prevent numerical underflow on long sequences. The Viterbi method fills a dynamic programming grid with one row per state and one column per position. For each box it keeps a pointer to the winning previous state, then traces back from the best final state to return the most probable path and its log-probability.
+
+The class is designed to grow over the next projects. Helper methods for building the grid, writing to it, and tracing back are kept separate so they can be reused by the algorithms in Projects 09 and 10.
+
+The notebook project08.ipynb contains the implementation and a test cell for each method. The tests include hand-checked answers, invalid inputs, an underflow test on an 1,800-symbol sequence, and a 3-state model with a non-DNA alphabet. The notebook ends with a demonstration on the example data from the project instructions.
 
 # Pseudocode
 ```
@@ -118,7 +125,8 @@ Class HMM(init_probs, trans_probs, emit_probs):
 # Reflection and Adaptive Learning
 
 # Personal Reflection
-## Member
+## Ildiko
+I felt intimidated by this project not having guardrails and functions to guide us, on top of learning a new algorithm.  Chapter 3 of Durbin et al. primer was very helpful for understanding the Viterbi algorithm. After our group meeting, where we sketched out the frame of the project, it helped me turn that frame into a solid pseudocode. It was an interesting new challenge to think about how to keep our project flexible and open for future use, while still making sure it is accurate and works properly for what we need now, a very new way for me to approach the projects. Since this week’s project had no guardrails, I am looking forward to seeing how everyone else approached the design. I'm sure there will be some very cool differences and I'm looking forward to learning more by reviewing them.
 
 ## Member
 
