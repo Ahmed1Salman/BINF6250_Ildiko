@@ -118,7 +118,62 @@ Class HMM(init_probs, trans_probs, emit_probs):
 ```
 
 # Results
+We implemented a number of tests to check if the algorithm is working correctly:
+Using the example data structures in Project08 instructions:
+```
+# Test cell for __init__ Results:
+states: ['I', 'G'] expected: ['I', 'G']
+state_index: {'I': 0, 'G': 1} expected: {'I': 0, 'G': 1}
+alphabet: {'T', 'G', 'A', 'C'} expected: {'A', 'C', 'G', 'T'}
+log_init I: -1.6094 expected: -1.6094
+log_trans G to G: -0.1054 expected: -0.1054
+log_emit I, C: -0.9163 expected: -0.9163
 
+# Test cell for validate() results:
+initial probabilities don't add up to 1
+transition row I doesn't add up to 1
+emission states don't match the initial states
+emission row G has different symbols
+initial probabilities can't be negative
+emission row I doesn't add up to 1
+emission probabilities can't be negative
+
+# Test cell for check_observations() results:
+GG passed
+GGCACTGAA passed
+GGNA error: symbols not in the alphabet: {'N'}
+error: observation sequence is empty
+
+# Test cell for initialize_matrix() and update_matrix() results:
+[[-inf -inf -inf]
+ [-inf -inf -inf]]
+[[-1 -1 -1]
+ [-1 -1 -1]]
+-1.8326
+-1
+
+# Test cell for traceback() results:
+['G', 'G']
+['I', 'I']
+
+# Test cell for viterbi_algorithm() results:
+G ['G'] -1.8326
+GG ['G', 'G'] -3.5474
+GGCACTGAA ['G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G'] -13.9291
+-2762.3828671147444
+1800
+
+# Test cell for a model with 3 states and a non-DNA alphabet (nothing hard-coded for 2 states or for DNA) results:
+['Z'] -1.8326
+
+# if __name__ == __main__ cell results: This cell uses the example data to generate a path.
+Observation:     GGCACTGAA
+States:          GGGGGGGGG
+Log Probability: -13.929108456051065
+
+# Ecoli test cell results: Genome size is 4,699,745 base pairs
+Log Probability: -6426002.235054593 and first 10 states of the path: ['N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N']. Elapsed time: 36.088131 seconds
+```
 
 # Successes
 
