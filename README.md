@@ -193,5 +193,10 @@ I felt intimidated by this project not having guardrails and functions to guide 
 ## Member
 
 
+# Citations
+Blattner, F. R., Plunkett, G., 3rd, Bloch, C. A., Perna, N. T., Burland, V., Riley, M., Collado-Vides, J., Glasner, J. D., Rode, C. K., Mayhew, G. F., Gregor, J., Davis, N. W., Kirkpatrick, H. A., Goeden, M. A., Rose, D. J., Mau, B., & Shao, Y. (1997). The complete genome sequence of Escherichia coli K-12. Science (New York, N.Y.), 277(5331), 1453–1462. https://doi.org/10.1126/science.277.5331.1453
+
+This study is the original paper where the E.coli genome sequence I used was produced. The genome I am using does include future revisions as well. If you want to download the genome to test for yourself, here is the link: https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000005845.2/
+
 # Generative AI Appendix
 Ahmed Salman - Claude AI (Sonnet 5.5) to generate a set of probabilities for the E.coli test. Without somewhat realistic values for the test the results would have been messy and mostly meaningless. The probabilities I got from Claude produced reasonable results with large stretches of the "native" state with a few stretches of "alien" state.
