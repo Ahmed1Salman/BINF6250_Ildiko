@@ -28,11 +28,14 @@ Class HMM(init_probs, trans_probs, emit_probs):
     self.validate()
 
     # Step 4. convert to log space once (Durbin p. 78); trans and emit are NESTED dictionaries
-    self.log_init  = {state: np.log(p) for state, p in init_probs.items()}
-    self.log_trans = {from_state: {to_state: np.log(p) for to_state, p in row.items()}
-                      for from_state, row in trans_probs.items()}
-    self.log_emit  = {state: {symbol: np.log(p) for symbol, p in row.items()}
-                      for state, row in emit_probs.items()}
+    # Silence warning message for this step only. Warning points to probabilities = 0 which is acceptable and not an error.
+    with np.errstates(divide='ignore'):
+      self.log_init  = {state: np.log(p) for state, p in init_probs.items()}
+      self.log_trans = {from_state: {to_state: np.log(p) for to_state, p in row.items()}
+                        for from_state, row in trans_probs.items()}
+      self.log_emit  = {state: {symbol: np.log(p) for symbol, p in row.items()}
+                        for state, row in emit_probs.items()}
+
     # OPEN DECISION: zero probabilities -> allow -inf, or pseudocounts?
 
     self.score_matrix     = None    # built in initialize_matrix(), filled in viterbi_algorithm()
@@ -76,6 +79,7 @@ Class HMM(init_probs, trans_probs, emit_probs):
     return [self.states[row] for row in path_rows]
 
   viterbi_algorithm(observations):
+    observations = observations.upper()
     self.check_observations(observations)
     num_states    = len(self.states)
     num_positions = len(observations)
@@ -114,7 +118,62 @@ Class HMM(init_probs, trans_probs, emit_probs):
 ```
 
 # Results
+We implemented a number of tests to check if the algorithm is working correctly:
+Using the example data structures in Project08 instructions:
+```
+# Test cell for __init__ Results:
+states: ['I', 'G'] expected: ['I', 'G']
+state_index: {'I': 0, 'G': 1} expected: {'I': 0, 'G': 1}
+alphabet: {'T', 'G', 'A', 'C'} expected: {'A', 'C', 'G', 'T'}
+log_init I: -1.6094 expected: -1.6094
+log_trans G to G: -0.1054 expected: -0.1054
+log_emit I, C: -0.9163 expected: -0.9163
 
+# Test cell for validate() results:
+initial probabilities don't add up to 1
+transition row I doesn't add up to 1
+emission states don't match the initial states
+emission row G has different symbols
+initial probabilities can't be negative
+emission row I doesn't add up to 1
+emission probabilities can't be negative
+
+# Test cell for check_observations() results:
+GG passed
+GGCACTGAA passed
+GGNA error: symbols not in the alphabet: {'N'}
+error: observation sequence is empty
+
+# Test cell for initialize_matrix() and update_matrix() results:
+[[-inf -inf -inf]
+ [-inf -inf -inf]]
+[[-1 -1 -1]
+ [-1 -1 -1]]
+-1.8326
+-1
+
+# Test cell for traceback() results:
+['G', 'G']
+['I', 'I']
+
+# Test cell for viterbi_algorithm() results:
+G ['G'] -1.8326
+GG ['G', 'G'] -3.5474
+GGCACTGAA ['G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G'] -13.9291
+-2762.3828671147444
+1800
+
+# Test cell for a model with 3 states and a non-DNA alphabet (nothing hard-coded for 2 states or for DNA) results:
+['Z'] -1.8326
+
+# if __name__ == __main__ cell results: This cell uses the example data to generate a path.
+Observation:     GGCACTGAA
+States:          GGGGGGGGG
+Log Probability: -13.929108456051065
+
+# Ecoli test cell results: Genome size is 4,699,745 base pairs
+Log Probability: -6426002.235054593 and first 10 states of the path: ['N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'N']. Elapsed time: 36.088131 seconds
+```
 
 # Successes
 
@@ -134,4 +193,10 @@ I felt intimidated by this project not having guardrails and functions to guide 
 ## Member
 
 
+# Citations
+Blattner, F. R., Plunkett, G., 3rd, Bloch, C. A., Perna, N. T., Burland, V., Riley, M., Collado-Vides, J., Glasner, J. D., Rode, C. K., Mayhew, G. F., Gregor, J., Davis, N. W., Kirkpatrick, H. A., Goeden, M. A., Rose, D. J., Mau, B., & Shao, Y. (1997). The complete genome sequence of Escherichia coli K-12. Science (New York, N.Y.), 277(5331), 1453–1462. https://doi.org/10.1126/science.277.5331.1453
+
+This study is the original paper where the E.coli genome sequence I used was produced. The genome I am using does include future revisions as well. If you want to download the genome to test for yourself, here is the link: https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000005845.2/
+
 # Generative AI Appendix
+Ahmed Salman - Claude AI (Sonnet 5.5) to generate a set of probabilities for the E.coli test. Without somewhat realistic values for the test the results would have been messy and mostly meaningless. The probabilities I got from Claude produced reasonable results with large stretches of the "native" state with a few stretches of "alien" state.
