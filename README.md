@@ -176,22 +176,27 @@ Log Probability: -6426002.235054593 and first 10 states of the path: ['N', 'N', 
 ```
 
 # Successes
-
+* Successfully implemented the Viterbi algorithm using log probabilities and traceback to identify the most probable hidden-state sequence.
+* Designed a flexible HMM class with reusable methods that can be expanded upon for the future HMM algorithm projects.
+* Validated the implementation using hand-calculated examples, invalid inputs, and longer sequences, including the E. coli genome test case.
 
 # Struggles
-
+* Deciding how to structure our algorithm without starter code or functions.
+* Figuring out how to design the HMM class to work with different numbers of hidden states and observation symbols, rather than making it specific to DNA sequences.
+* Making sure our code wasn't specific to DNA and could work with different numbers of hidden states and observation symbols.
+* Accounting for edge cases
 
 # Reflection and Adaptive Learning
 
 # Personal Reflection
-## Ildiko
+### Group Leader: Ildiko Polyak
 I felt intimidated by this project not having guardrails and functions to guide us, on top of learning a new algorithm.  Chapter 3 of Durbin et al. primer was very helpful for understanding the Viterbi algorithm. After our group meeting, where we sketched out the frame of the project, it helped me turn that frame into a solid pseudocode. It was an interesting new challenge to think about how to keep our project flexible and open for future use, while still making sure it is accurate and works properly for what we need now, a very new way for me to approach the projects. Since this week’s project had no guardrails, I am looking forward to seeing how everyone else approached the design. I'm sure there will be some very cool differences and I'm looking forward to learning more by reviewing them.
 
-## Member
+### Other Member: Selin Uenal
+Our group has worked together before, so I was confident in our ability to work well toghether, and was looking forward to working together again. I thought this project was an interesting change from our previous assignments since we had so much more freedom in how we designed and structured the code. One of the biggest things we had to think about was how to design our HMM class to be flexible and reusable, with methods that we could build on for the algorithms in the next projects instead than having to start from scratch each time. We also spent a good chunk of time testing edge cases. This really helped me better understand why validation and testing are important beyond just getting the expected output. I'm excited to see how we will build on our HMM class in the next project!
 
-
-## Member
-
+## Other Member: Ahmed Salman
+TODO
 
 # Citations
 Blattner, F. R., Plunkett, G., 3rd, Bloch, C. A., Perna, N. T., Burland, V., Riley, M., Collado-Vides, J., Glasner, J. D., Rode, C. K., Mayhew, G. F., Gregor, J., Davis, N. W., Kirkpatrick, H. A., Goeden, M. A., Rose, D. J., Mau, B., & Shao, Y. (1997). The complete genome sequence of Escherichia coli K-12. Science (New York, N.Y.), 277(5331), 1453–1462. https://doi.org/10.1126/science.277.5331.1453
