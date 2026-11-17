@@ -201,5 +201,11 @@ Blattner, F. R., Plunkett, G., 3rd, Bloch, C. A., Perna, N. T., Burland, V., Ril
 
 This study is the original paper where the E.coli genome sequence I used was produced. The genome I am using does include future revisions as well. If you want to download the genome to test for yourself, here is the link: https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000005845.2/
 
+Durbin, R., Eddy, S. R., Krogh, A., & Mitchison, G. (1998). Biological sequence analysis: Probabilistic models of proteins and nucleic acids. Cambridge University Press. https://doi.org/10.1017/CBO9780511790492
+
+Rabiner, L. R. (1989). A tutorial on hidden Markov models and selected applications in speech recognition. Proceedings of the IEEE, 77(2), 257–286. https://doi.org/10.1109/5.18626
+
 # Generative AI Appendix
 Ahmed Salman - Claude AI (Sonnet 5.5) to generate a set of probabilities for the E.coli test. Without somewhat realistic values for the test the results would have been messy and mostly meaningless. The probabilities I got from Claude produced reasonable results with large stretches of the "native" state with a few stretches of "alien" state.
+
+Ildiko Polyak - Claude AI (Opus 5.5) used to create test cases to check code functionality.
