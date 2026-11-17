@@ -186,8 +186,6 @@ Log Probability: -6426002.235054593 and first 10 states of the path: ['N', 'N', 
 * Making sure our code wasn't specific to DNA and could work with different numbers of hidden states and observation symbols.
 * Accounting for edge cases
 
-# Reflection and Adaptive Learning
-
 # Personal Reflection
 ### Group Leader: Ildiko Polyak
 I felt intimidated by this project not having guardrails and functions to guide us, on top of learning a new algorithm.  Chapter 3 of Durbin et al. primer was very helpful for understanding the Viterbi algorithm. After our group meeting, where we sketched out the frame of the project, it helped me turn that frame into a solid pseudocode. It was an interesting new challenge to think about how to keep our project flexible and open for future use, while still making sure it is accurate and works properly for what we need now, a very new way for me to approach the projects. Since this week’s project had no guardrails, I am looking forward to seeing how everyone else approached the design. I'm sure there will be some very cool differences and I'm looking forward to learning more by reviewing them.
